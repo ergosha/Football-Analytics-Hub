@@ -45,34 +45,63 @@ export default async function StandingsPage({
         {LEAGUES[leagueCode]} Standings
       </h1>
 
-      <div className="space-y-2">
+      {/* Header row */}
+      <div className="grid grid-cols-[40px_1fr_60px_60px_60px_60px] gap-2 px-4 py-2 text-sm font-semibold text-gray-600 border-b">
+        <div className="text-right">#</div>
+        <div>Team</div>
+        <div className="text-right">Pts</div>
+        <div className="text-right">GF</div>
+        <div className="text-right">GA</div>
+        <div className="text-right">GD</div>
+      </div>
+
+      {/* Data rows */}
+      <div className="space-y-1 mt-2">
         {table.map((row: any) => (
           <div
             key={row.team.id}
-            className="flex justify-between items-center bg-white p-4 rounded-xl shadow"
+            className="grid grid-cols-[40px_1fr_60px_60px_60px_60px] gap-2 px-4 py-3 bg-white rounded-lg shadow-sm"
           >
-            <div className="flex items-center gap-3">
-              <span className="text-gray-500 w-5 text-right">
-                {row.position}
-              </span>
+            {/* Position */}
+            <div className="text-right text-gray-500">
+              {row.position}
+            </div>
 
+            {/* Team */}
+            <div className="flex items-center gap-3">
               <img
                 src={row.team.crest}
                 alt={row.team.name}
-                className="w-7 h-7"
+                className="w-6 h-6"
               />
-
               <span className="font-medium">
                 {row.team.name}
               </span>
             </div>
 
-            <span className="font-semibold">
-              {row.points} pts
-            </span>
+            {/* Points */}
+            <div className="text-right font-semibold">
+              {row.points}
+            </div>
+
+            {/* Goals For */}
+            <div className="text-right">
+              {row.goalsFor}
+            </div>
+
+            {/* Goals Against */}
+            <div className="text-right">
+              {row.goalsAgainst}
+            </div>
+
+            {/* Goal Difference */}
+            <div className="text-right">
+              {row.goalDifference}
+            </div>
           </div>
         ))}
       </div>
     </main>
   );
 }
+

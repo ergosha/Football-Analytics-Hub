@@ -1,6 +1,9 @@
 const leagues = [
   { code: "PL", name: "Premier League" },
   { code: "PD", name: "La Liga" },
+  { code: "BL1", name: "Bundesliga" },
+  { code: "SA", name: "Serie A" },
+  { code: "FL1", name: "Ligue 1" },
 ];
 
 export default function Home() {
