@@ -1,4 +1,4 @@
-# Football Analytics Dashboard
+# Football Analytics Hub
 
 A modern web application for viewing football league data, built with Next.js and an official football data API.
 
