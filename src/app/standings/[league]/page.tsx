@@ -93,7 +93,13 @@ export default async function StandingsPage({
                   alt={row.team.name}
                   className="w-6 h-6"
                 />
-                <span className="font-medium">{row.team.name}</span>
+
+                <a
+                  href={`/teams/${row.team.id}`}
+                  className="font-medium hover:underline"
+                >
+                  {row.team.name}
+                </a>
               </div>
 
               {/* Stats */}
