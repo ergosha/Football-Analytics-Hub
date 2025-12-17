@@ -1,3 +1,5 @@
+import LeagueSelector from "@/app/components/LeagueSelecotor";
+
 export const revalidate = 60;
 
 const LEAGUES: Record<string, string> = {
@@ -35,73 +37,80 @@ export default async function StandingsPage({
   }
 
   const data = await res.json();
-  const table = data.standings.find(
-    (s: any) => s.type === "TOTAL"
-  )?.table;
+  const table =
+    data.standings.find((s: any) => s.type === "TOTAL")?.table ?? [];
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
+    <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">
         {LEAGUES[leagueCode]} Standings
       </h1>
 
+      <LeagueSelector currentLeague={leagueCode} />
+
       {/* Header row */}
-      <div className="grid grid-cols-[40px_1fr_60px_60px_60px_60px] gap-2 px-4 py-2 text-sm font-semibold text-gray-600 border-b">
-        <div className="text-right">#</div>
-        <div>Team</div>
-        <div className="text-right">Pts</div>
-        <div className="text-right">GF</div>
-        <div className="text-right">GA</div>
-        <div className="text-right">GD</div>
+      <div className="grid grid-cols-[40px_1fr_repeat(8,_50px)] gap-2 text-sm text-gray-600 font-semibold px-4 py-2">
+        <span className="text-right">Pos</span>
+        <span>Team</span>
+        <span className="text-center">P</span>
+        <span className="text-center">W</span>
+        <span className="text-center">D</span>
+        <span className="text-center">L</span>
+        <span className="text-center">GF</span>
+        <span className="text-center">GA</span>
+        <span className="text-center">GD</span>
+        <span className="text-center">Pts</span>
       </div>
 
       {/* Data rows */}
       <div className="space-y-1 mt-2">
-        {table.map((row: any) => (
-          <div
-            key={row.team.id}
-            className="grid grid-cols-[40px_1fr_60px_60px_60px_60px] gap-2 px-4 py-3 bg-white rounded-lg shadow-sm"
-          >
-            {/* Position */}
-            <div className="text-right text-gray-500">
-              {row.position}
-            </div>
+        {table.map((row: any) => {
+          const isTopFour = row.position <= 4;
+          const isRelegation = row.position >= table.length - 2;
 
-            {/* Team */}
-            <div className="flex items-center gap-3">
-              <img
-                src={row.team.crest}
-                alt={row.team.name}
-                className="w-6 h-6"
-              />
-              <span className="font-medium">
-                {row.team.name}
+          return (
+            <div
+              key={row.team.id}
+              className={`grid grid-cols-[40px_1fr_repeat(8,_50px)] gap-2 items-center px-4 py-3 rounded-lg shadow-sm
+                ${isTopFour ? "bg-green-50" : ""}
+                ${isRelegation ? "bg-red-50" : "bg-white"}
+              `}
+            >
+              {/* Position */}
+              <span
+                className={`text-right
+                  ${isTopFour ? "font-bold text-green-700" : ""}
+                  ${isRelegation ? "font-bold text-red-700" : "text-gray-500"}
+                `}
+              >
+                {row.position}
               </span>
-            </div>
 
-            {/* Points */}
-            <div className="text-right font-semibold">
-              {row.points}
-            </div>
+              {/* Team */}
+              <div className="flex items-center gap-3">
+                <img
+                  src={row.team.crest}
+                  alt={row.team.name}
+                  className="w-6 h-6"
+                />
+                <span className="font-medium">{row.team.name}</span>
+              </div>
 
-            {/* Goals For */}
-            <div className="text-right">
-              {row.goalsFor}
+              {/* Stats */}
+              <span className="text-center">{row.playedGames}</span>
+              <span className="text-center">{row.won}</span>
+              <span className="text-center">{row.draw}</span>
+              <span className="text-center">{row.lost}</span>
+              <span className="text-center">{row.goalsFor}</span>
+              <span className="text-center">{row.goalsAgainst}</span>
+              <span className="text-center">{row.goalDifference}</span>
+              <span className="text-center font-semibold">{row.points}</span>
             </div>
-
-            {/* Goals Against */}
-            <div className="text-right">
-              {row.goalsAgainst}
-            </div>
-
-            {/* Goal Difference */}
-            <div className="text-right">
-              {row.goalDifference}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </main>
   );
 }
+
 
