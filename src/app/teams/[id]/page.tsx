@@ -1,5 +1,19 @@
 export const revalidate = 60;
 
+function calculateAge(dateOfBirth: string) {
+  const birthDate = new Date(dateOfBirth);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  return age;
+}
+
 export default async function TeamPage({
   params,
 }: {
@@ -63,34 +77,42 @@ export default async function TeamPage({
       </div>
 
       {/* Squad Section */}
-      {team.squad && team.squad.length > 0 && (
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold mb-4">Squad</h2>
+      {/* Squad Section */}
+{team.squad && team.squad.length > 0 && (
+  <section className="mt-10">
+    <h2 className="text-2xl font-semibold mb-4">Squad</h2>
 
-          <div className="border rounded-lg overflow-hidden">
-            {/* Header */}
-            <div className="grid grid-cols-[50px_1fr_150px_150px] bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">
-              <span>#</span>
-              <span>Name</span>
-              <span>Position</span>
-              <span>Nationality</span>
-            </div>
+    <div className="border rounded-lg overflow-hidden">
+      {/* Header */}
+      <div className="grid grid-cols-[50px_1fr_150px_150px_80px] bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">
+        <span>#</span>
+        <span>Name</span>
+        <span>Position</span>
+        <span>Nationality</span>
+        <span>Age</span>
+      </div>
 
-            {/* Player Rows */}
-            {team.squad.map((player: any, index: number) => (
-              <div
-                key={player.id}
-                className="grid grid-cols-[50px_1fr_150px_150px] px-4 py-2 border-t text-sm"
-              >
-                <span>{player.shirtNumber ?? index + 1}</span>
-                <span className="font-medium">{player.name}</span>
-                <span>{player.position ?? "—"}</span>
-                <span>{player.nationality}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Rows */}
+      {team.squad.map((player: any, index: number) => (
+        <div
+          key={player.id}
+          className="grid grid-cols-[50px_1fr_150px_150px_80px] px-4 py-2 border-t text-sm"
+        >
+          <span>{player.shirtNumber ?? index + 1}</span>
+          <span className="font-medium">{player.name}</span>
+          <span>{player.position ?? "—"}</span>
+          <span>{player.nationality}</span>
+          <span>
+            {player.dateOfBirth
+              ? calculateAge(player.dateOfBirth)
+              : "—"}
+          </span>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
     </main>
   );
 }
