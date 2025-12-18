@@ -25,6 +25,7 @@ export default async function TeamPage({
 
   return (
     <main className="max-w-3xl mx-auto p-6">
+      {/* Club Info */}
       <div className="flex items-center gap-4 mb-6">
         <img
           src={team.crest}
@@ -60,6 +61,37 @@ export default async function TeamPage({
           )}
         </p>
       </div>
+
+      {/* Squad Section */}
+      {team.squad && team.squad.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-semibold mb-4">Squad</h2>
+
+          <div className="border rounded-lg overflow-hidden">
+            {/* Header */}
+            <div className="grid grid-cols-[50px_1fr_150px_150px] bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">
+              <span>#</span>
+              <span>Name</span>
+              <span>Position</span>
+              <span>Nationality</span>
+            </div>
+
+            {/* Player Rows */}
+            {team.squad.map((player: any, index: number) => (
+              <div
+                key={player.id}
+                className="grid grid-cols-[50px_1fr_150px_150px] px-4 py-2 border-t text-sm"
+              >
+                <span>{player.shirtNumber ?? index + 1}</span>
+                <span className="font-medium">{player.name}</span>
+                <span>{player.position ?? "—"}</span>
+                <span>{player.nationality}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }
+
