@@ -99,7 +99,12 @@ export default async function TeamPage({
           className="grid grid-cols-[50px_1fr_150px_150px_80px] px-4 py-2 border-t text-sm"
         >
           <span>{player.shirtNumber ?? index + 1}</span>
-          <span className="font-medium">{player.name}</span>
+          <a
+            href={`/players/${player.id}?teamId=${team.id}`}
+            className="font-medium hover:underline"
+          >
+            {player.name}
+          </a>
           <span>{player.position ?? "—"}</span>
           <span>{player.nationality}</span>
           <span>
