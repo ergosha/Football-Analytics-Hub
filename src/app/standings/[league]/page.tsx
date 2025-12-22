@@ -8,6 +8,11 @@ const LEAGUES: Record<string, string> = {
   BL1: "Bundesliga",
   SA: "Serie A",
   FL1: "Ligue 1",
+  CL: "Champions League",
+  PPL: "Primeira Liga",
+  DED: "Eredivisie",
+  ELC: "Championship",
+  BSA: "Serie A",
 };
 
 export default async function StandingsPage({
@@ -65,23 +70,15 @@ export default async function StandingsPage({
       {/* Data rows */}
       <div className="space-y-1 mt-2">
         {table.map((row: any) => {
-          const isTopFour = row.position <= 4;
-          const isRelegation = row.position >= table.length - 2;
-
+          
           return (
             <div
               key={row.team.id}
-              className={`grid grid-cols-[40px_1fr_repeat(8,_50px)] gap-2 items-center px-4 py-3 rounded-lg shadow-sm
-                ${isTopFour ? "bg-green-50" : ""}
-                ${isRelegation ? "bg-red-50" : "bg-white"}
-              `}
+              className={`grid grid-cols-[40px_1fr_repeat(8,_50px)] gap-2 items-center px-4 py-3 rounded-lg shadow-sm`}
             >
               {/* Position */}
               <span
-                className={`text-right
-                  ${isTopFour ? "font-bold text-green-700" : ""}
-                  ${isRelegation ? "font-bold text-red-700" : "text-gray-500"}
-                `}
+                className={`text-right`}
               >
                 {row.position}
               </span>

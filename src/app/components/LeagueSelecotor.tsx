@@ -8,6 +8,12 @@ const LEAGUES = [
   { code: "BL1", name: "Bundesliga" },
   { code: "SA", name: "Serie A" },
   { code: "FL1", name: "Ligue 1" },
+  { code: "CL", name: "Champions League" },
+  { code: "PPL", name: "Primeira Liga" },
+  { code: "DED", name: "Eredivisie" },
+  { code: "ELC", name: "Championship" },
+  { code: "BSA", name: "Serie A" },
+
 ];
 
 export default function LeagueSelector({
