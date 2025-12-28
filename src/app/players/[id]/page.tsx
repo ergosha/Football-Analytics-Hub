@@ -53,39 +53,66 @@ export default async function PlayerPage({
 
   console.log(player);
 
+
+
   return (
-
-    
-
-
     <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">
+      {/* Back link */}
+      <a
+        href={`/teams/${team.id}`}
+        className="text-sm text-blue-600 hover:underline mb-4 inline-block"
+      >
+        ← Back to {team.name}
+      </a>
+
+      {/* Player Header */}
+      <h1 className="text-3xl font-bold mb-6">
         {player.name}
       </h1>
 
-      <div className="space-y-2 text-gray-700">
-        <p>
-          <strong>Team:</strong> {team.name}
-        </p>
-        <p>
-          <strong>Position:</strong> {player.position ?? "—"}
-        </p>
-        <p>
-          <strong>Nationality:</strong> {player.nationality}
-        </p>
-        {/* Only show if shirt number exists 
-        {player.shirtNumber && (
-           <p>
-          <strong>Shirt number:</strong> {player.shirtNumber}
-            </p>
-              )} */}
-        <p>
-          <strong>Age:</strong>{" "}
-          {player.dateOfBirth
-            ? calculateAge(player.dateOfBirth)
-            : "—"}
-        </p>
+      {/* Player Info Card */}
+      <div className="border rounded-xl p-6 bg-white">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 text-gray-700">
+          <div>
+            <span className="block text-sm text-gray-500">
+              Team
+            </span>
+            <span className="font-medium">
+              {team.name}
+            </span>
+          </div>
+
+          <div>
+            <span className="block text-sm text-gray-500">
+              Position
+            </span>
+            <span className="font-medium">
+              {player.position ?? "—"}
+            </span>
+          </div>
+
+          <div>
+            <span className="block text-sm text-gray-500">
+              Nationality
+            </span>
+            <span className="font-medium">
+              {player.nationality}
+            </span>
+          </div>
+
+          <div>
+            <span className="block text-sm text-gray-500">
+              Age
+            </span>
+            <span className="font-medium">
+              {player.dateOfBirth
+                ? calculateAge(player.dateOfBirth)
+                : "—"}
+            </span>
+          </div>
+        </div>
       </div>
     </main>
   );
+
 }
