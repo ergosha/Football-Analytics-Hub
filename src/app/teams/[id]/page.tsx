@@ -61,7 +61,7 @@ const fixtures = fixturesData?.matches ?? [];
 return (
   <main className="max-w-5xl mx-auto p-6">
     {/* Team Header */}
-    <div className="flex items-center gap-4 mb-8">
+    <div className="flex items-center gap-4 mb-6 pb-4 border-b">
       <img
         src={team.crest}
         alt={team.name}
@@ -73,7 +73,7 @@ return (
     </div>
 
     {/* Overview Section */}
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14 bg-gray-50 p-6 rounded-xl">
       {/* Club Info */}
       <div className="space-y-2 text-gray-700">
         <h2 className="text-xl font-semibold mb-2">
@@ -146,7 +146,7 @@ return (
 
     {/* Squad Section */}
     {team.squad && team.squad.length > 0 && (
-      <section className="mt-10">
+      <section className="mt-8">
         <h2 className="text-2xl font-semibold mb-4">
           Squad
         </h2>
